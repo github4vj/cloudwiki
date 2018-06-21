@@ -3,26 +3,3 @@ steps:
   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/quickstart-image', '.' ]
 images:
 - 'gcr.io/$PROJECT_ID/quickstart-image'
-resources:
- jobs:
-- name: build-cloud-docs
-  plan:
-    - get: cloudwiki
-      trigger: true
-    - task: generate_docs
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source:
-            repository: registry.hub.docker.com/jojomi/hugo
-        inputs:
-          - name: cloudwiki
-        outputs:
-          - name: output
-        run:
-          path: /usr/local/sbin/hugo
-          args:
-            - --source=cloud-docs/ops-docs/
-            - --destination=../../output
-    - put: deploy-cloud-docs
