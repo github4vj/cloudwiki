@@ -1,5 +1,3 @@
 steps:
-- name: 'gcr.io/cloudwiki/docker'
-  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/quickstart-image', '.' ]
-images:
-- 'gcr.io/$PROJECT_ID/quickstart-image'
+  - name: gcr.io/cloud-builders/gsutil
+    args: ["-m", "rsync", "-r", "-c", "-d", "./vision/explore-api", "gs://hello.alp.im"]
